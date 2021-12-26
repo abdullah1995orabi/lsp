@@ -19,48 +19,47 @@ app.get("/", function (req, res) {
 });
 
 app.post("/api/anmelden", (req, res) => {
-  const {email, password, accountType} = req.body
-  // if (req.body.accountType === "trainer") {
-  //   res.status(200).json({ message: "was möchten sie anbieten ?" });
-  // }
-  // if (req.body.accountType === "auszubildender") {
-  //   res.status(200).json({ message: "es gibt neue Kursen" });
-  // }
+  const { email, password } = req.body;
+
+  User.findOne({ email: email }).then(async (user) => {
+    if (user) {
+      if(user.isValidPassword(password)){
+        res.status(200).json({ message: "willkommen "+user.vorname+"!" });
+      }else{
+        res.status(200).json({ message: "password wrong!" });
+      }
+    } else {
+      res.status(404).json({ message: "user not found" });    }
+  });
 });
 
-app.post("/api/register", async (req, res) => {
-  const {nachname, vorname, email, password, accountType,plz ,strnr} = req.body
-  const newuser = new User ({
-    nachname:nachname,
-    vorname:vorname,
-    email:email,
-    password:password,
-    accountType:accountType,
-    plz:plz,
-    strnr:strnr,
-  })
-try{
-  const result = await newuser.save()
-  res.status(200).json(result)
-}catch {
-  res.status(404).json(err)
-}
-//test
-   /*const newUser = new User({
-     nachname: "Orabi",
-     vorname: "Abdullah",
-     email: "newemail2@gmail.com",
-     password: "657567",
-     accountType: "auszubildender"
-   })
-   
-   */
-  //test
-  // newUser.save().then(data => {
-  //   console.log("new User has been created", data)
-  // }).catch(err => {
-  //   console.log("err while create new User", err)
-  // })
+app.post("/api/register", (req, res) => {
+  const { nachname, vorname, email, password, accountType, plz, strnr } =
+    req.body;
+
+  User.findOne({ email: email }).then(async (user) => {
+    if (user) {
+      res.status(404).json({ message: "user has been already registered" });
+    } else {
+      try {
+        const newuser = new User({
+          nachname: nachname,
+          vorname: vorname,
+          email: email,
+          accountType: accountType,
+          plz: plz,
+          strnr: strnr,
+        });
+        newuser.encryptPassword(password)
+
+        const result = await newuser.save();
+        res.status(200).json({ message: "willkommen!" });
+      } catch (err) {
+        console.log(err);
+        res.status(404).json({ message: "error" });
+      }
+    }
+  });
 });
 app.listen(5000, function () {
   console.log("app listen on port 5000");
