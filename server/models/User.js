@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
-
+const bcryptjs = require("bcryptjs")
 const userSchema = new mongoose.Schema({
-  vornamr:{
+  vorname:{
     type: String,
     required: true,
     lowercase: true,
@@ -35,5 +35,15 @@ const userSchema = new mongoose.Schema({
     required: true,
   },
 });
+
+userSchema.methods.encryptPassword = function(password){
+this.password = bcryptjs.hashSync(password, 8)
+}
+userSchema.methods.isValidPassword = function (password){
+  return bcryptjs.compareSync(password, this.password)
+}
+
+
+
 
 module.exports = mongoose.model("User", userSchema)
