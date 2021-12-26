@@ -11,6 +11,7 @@ import Sportarten from "./Components/Sport/Sportarten";
 import Überuns from "./Components/Überuns/Überuns";
 import Kontakt from "./Components/Kontakt/Kontakt";
 import Carousel from "./Components/Carousel/Carousel";
+import { ToastContainer } from 'react-toastify';
 export default class App extends React.Component {
   componentDidMount(){
     // let favicon = document.getElementById("favicon")
@@ -19,6 +20,7 @@ export default class App extends React.Component {
   render(){
       return (
     <div className="container-fluid">
+      <ToastContainer  autoClose={3000}/>
       <Navigation />
       <Carousel />
       <br />
