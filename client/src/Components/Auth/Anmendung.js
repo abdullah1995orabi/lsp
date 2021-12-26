@@ -8,7 +8,6 @@ export default class Anmendung extends Component {
     this.state = {
       email: "",
       password: "",
-      accountType: "",
     };
     this.anmeldenHandler = this.anmeldenHandler.bind(this);
   }
@@ -35,7 +34,7 @@ export default class Anmendung extends Component {
         </label>
         <input
           onChange={(e) => this.setState({ email: e.target.value })}
-          type="text"
+          type="email"
           placeholder="Enter Email"
           name="email"
           id="email"
@@ -49,21 +48,10 @@ export default class Anmendung extends Component {
           type="password"
           onChange={(e) => this.setState({ password: e.target.value })}
           placeholder="Enter Password"
-          name="psw"
-          id="psw"
+          name="password"
+          id="password"
           required
         />
-        <select
-          // onChange={function(e){console.log(e.target.value)}}
-          onChange={(e) => this.setState({ accountType: e.target.value })}
-          className=" auswahl form-select-lg mb-3 col-12 "
-          aria-label=".form-select-lg example"
-        >
-          <option defaultValue>wählen sie Ihren Status aus</option>
-          <option value={"trainer"}>Trainer</option>
-          <option value={"auszubildender"}>Auszubildender</option>
-          {/* <option value={3}>Trainer und Auszubildener</option> */}
-        </select>
 
         <button onClick={this.anmeldenHandler} className="registerbtn">
           Anmelden
