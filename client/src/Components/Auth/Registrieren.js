@@ -82,7 +82,7 @@ export default class Registrieren extends Component {
           required
         />
         <label htmlFor="vorname">
-          {this.state.errors.vorname && this.state.errors.vorname}
+        {this.state.errors.vorname && <ErrorMessage message={this.state.errors.vorname}/>}
 
           <b>Vorname</b>
         </label>
@@ -99,7 +99,7 @@ export default class Registrieren extends Component {
           required
         />
         <label htmlFor="plz/ort">
-          {this.state.errors.plz && this.state.errors.plz}
+        {this.state.errors.plz && <ErrorMessage message={this.state.errors.plz}/>}
 
           <b>plz/Ort</b>
         </label>
@@ -115,7 +115,7 @@ export default class Registrieren extends Component {
         />
 
         <label htmlFor="strassen_Nr">
-          {this.state.errors.strnr && this.state.errors.strnr}
+        {this.state.errors.strnr && <ErrorMessage message={this.state.errors.strnr}/>}
 
           <b>Straßen Nr</b>
         </label>
@@ -132,7 +132,7 @@ export default class Registrieren extends Component {
           required
         />
         <label htmlFor="email">
-          {this.state.errors.email && this.state.errors.email}
+        {this.state.errors.email && <ErrorMessage message={this.state.errors.email}/>}
 
           <b>Email</b>
         </label>
@@ -150,7 +150,7 @@ export default class Registrieren extends Component {
         />
 
         <label htmlFor="password">
-          {this.state.errors.password && this.state.errors.password}
+        {this.state.errors.password && <ErrorMessage message={this.state.errors.password}/>}
 
           <b>Password</b>
         </label>
@@ -168,8 +168,7 @@ export default class Registrieren extends Component {
         />
 
         <label htmlFor="password">
-          {this.state.errors.passwordConfirmation &&
-            this.state.errors.passwordConfirmation}
+        {this.state.errors.passwordConfirmation&& <ErrorMessage message={this.state.errors.passwordConfirmation}/>}
 
           <b>Password Wiederholung</b>
         </label>
@@ -189,7 +188,7 @@ export default class Registrieren extends Component {
           required
         />
 
-        {this.state.errors.accountType && this.state.errors.accountType}
+{this.state.errors.accountType && <ErrorMessage message={this.state.errors.accountType}/>}
 
         <select
           // onChange={function(e){console.log(e.target.value)}}

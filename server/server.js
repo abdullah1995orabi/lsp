@@ -21,12 +21,12 @@ app.get("/", function (req, res) {
 app.post("/api/anmelden", (req, res) => {
   const { email, password } = req.body;
 
-  User.findOne({ email: email }).then(async (user) => {
+  User.findOne({ email: email , password: password}).then(async (user) => {
     if (user) {
       if(user.isValidPassword(password)){
         res.status(200).json({ message: "willkommen "+user.vorname+"!" });
       }else{
-        res.status(200).json({ message: "password wrong!" });
+        res.status(404).json({ message: "password wrong!" });
       }
     } else {
       res.status(404).json({ message: "user not found" });    }
