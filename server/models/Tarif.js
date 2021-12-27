@@ -1,18 +1,16 @@
 const mongoose = require("mongoose");
 const tarifSchema = new mongoose.Schema({
-tarifname:{
+  tarifname: {
     type: String,
     required: true,
     lowercase: true,
-},
-preis:{
+  },
+  preis: {
     type: double,
     required: true,
-   
-},
-discount:{
+  },
+  discount: {
     type: int,
     required: true,
-    
-},
+  },
 });

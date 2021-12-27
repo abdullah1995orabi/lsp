@@ -19,12 +19,11 @@ app.get("/", function (req, res) {
 });
 
 app.post("/api/anmelden", (req, res) => {
-  const { email, password } = req.body;
-
-  User.findOne({ email: email , password: password}).then(async (user) => {
+  const { email, password } = req.body.data;
+  User.findOne({ email: email }).then(async (user) => {
     if (user) {
       if(user.isValidPassword(password)){
-        res.status(200).json({ message: "willkommen "+user.vorname+"!" });
+        res.status(200).json({ message: "willkommen "+user.vorname+"!", loginData: user.generateLoginToken() });
       }else{
         res.status(404).json({ message: "password wrong!" });
       }
@@ -52,8 +51,10 @@ app.post("/api/register", (req, res) => {
         });
         newuser.encryptPassword(password)
 
-        const result = await newuser.save();
-        res.status(200).json({ message: "willkommen!" });
+         await newuser.save().then(data => {
+
+           res.status(200).json({ message: "willkommen!", loginData: data.generateLoginToken() });
+         });
       } catch (err) {
         console.log(err);
         res.status(404).json({ message: "error" });

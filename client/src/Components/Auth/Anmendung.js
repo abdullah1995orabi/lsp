@@ -1,14 +1,15 @@
 import React, { Component } from "react";
-import axios from "axios";
 import { Navigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import {ErrorMessage} from "../Messages/Messages"
-export default class Anmendung extends Component {
+import { ErrorMessage } from "../Messages/Messages";
+import { loginAction } from "../../Redux/actions/UserActions";
+import { connect } from "react-redux";
+class Anmendung extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      data: {  
+      data: {
         email: "",
         password: "",
       },
@@ -21,7 +22,7 @@ export default class Anmendung extends Component {
     let error = {};
     if (!data.email) error.email = "email is required!";
     if (!data.password) error.password = "password is required!";
-    
+
     return error;
   }
 
@@ -30,12 +31,11 @@ export default class Anmendung extends Component {
     this.setState({ errors: errors });
 
     if (Object.keys(errors).length === 0) {
-      axios
-        .post("/api/anmelden", this.state.data)
-        .then((x) => x.data)
+      this.props
+        .loginAction(this.state.data)
         .then((data) => {
-          this.setState({ redirect: true });
           toast(data.message);
+          this.setState({ redirect: true });
         })
         .catch((err) => {
           toast.error(err.response.data.message);
@@ -46,17 +46,21 @@ export default class Anmendung extends Component {
   render() {
     return (
       <div className="container">
-         {this.state.redirect && <Navigate to="/" />}
+        {this.state.redirect && <Navigate to="/" />}
         <h1>Anmeldung</h1>
         <p>melde dich an</p>
         <hr />
         <label htmlFor="email">
-        {this.state.errors.email && <ErrorMessage message={this.state.errors.email}/>}
+          {this.state.errors.email && (
+            <ErrorMessage message={this.state.errors.email} />
+          )}
           <b>Email</b>
         </label>
         <input
-          onChange={(e) => this.setState({  data: { ...this.state.data, email: e.target.value },
-           })
+          onChange={(e) =>
+            this.setState({
+              data: { ...this.state.data, email: e.target.value },
+            })
           }
           type="email"
           placeholder="Enter Email"
@@ -66,12 +70,18 @@ export default class Anmendung extends Component {
         />
 
         <label htmlFor="password">
-        {this.state.errors.password && <ErrorMessage message={this.state.errors.password}/>}
+          {this.state.errors.password && (
+            <ErrorMessage message={this.state.errors.password} />
+          )}
           <b>Password</b>
         </label>
         <input
           type="password"
-          onChange={(e) => this.setState({  data: { ...this.state.data, password: e.target.value }, })}
+          onChange={(e) =>
+            this.setState({
+              data: { ...this.state.data, password: e.target.value },
+            })
+          }
           placeholder="Enter Password"
           name="password"
           id="password"
@@ -85,3 +95,5 @@ export default class Anmendung extends Component {
     );
   }
 }
+
+export default connect(null, { loginAction })(Anmendung);
