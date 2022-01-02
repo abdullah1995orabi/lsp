@@ -1,6 +1,6 @@
 import React from "react";
 import "./App.css";
-import { Routes, Route, Navigate } from "react-router-dom";
+import { Routes, Route, Navigate, Link } from "react-router-dom";
 
 // Components
 import Anmenlung from "./Components/Auth/Anmendung";
@@ -14,40 +14,98 @@ import Kontakt from "./Components/Kontakt/Kontakt";
 import { ToastContainer } from "react-toastify";
 import { connect } from "react-redux";
 class App extends React.Component {
-  componentDidMount() {
-    // let favicon = document.getElementById("favicon")
-    // favicon = "/static/media/img1.3878a86d.png"
-  }
+  //this.setState({ isActive: this.state.isActive === "" ? "active" : "" });
+
   render() {
     return (
-      <div className="container-fluid">
+      <div className="wrapper">
         <ToastContainer autoClose={3000} />
-        <Navigation />
-        <br />
-        <br />
-        <br />
+        <nav id="sidebar" className={this.props.isActive}>
+          <div className="sidebar-header">
+            <h3>Dashboard</h3>
+          </div>
 
-        {/* <Carousel /> */}
-        <br />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/anmenlung" element={<Anmenlung />} />
-          <Route path="/registrieren" element={<Registrieren />} />
+          <ul className="list-unstyled components">
+            <p>Dummy Heading</p>
+            {/* <li className="active">
+              <a
+                href="#homeSubmenu"
+                data-toggle="collapse"
+                aria-expanded="false"
+                className="dropdown-toggle"
+              >
+                Sportarten
+              </a>
+              <ul className="collapse list-unstyled" id="homeSubmenu">
+                <li>
+                  <a href="#">list Sportarten</a>
+                </li>
+                <li>
+                  <a href="#">Sportarten hinzufügen</a>
+                </li>
+                <li>
+                  <a href="#">Home 3</a>
+                </li>
+              </ul>
+            </li> */}
+            <li>
+              <a href="#">About</a>
+            </li>
 
-          <Route
-            path="/Sportarten"
-            element={
-              this.props.isAuthenticated ? (
-                <Sportarten />
-              ) : (
-                <Navigate to="/anmenlung" />
-              )
-            }
-          />
+            {this.props.isAuthenticated && <li>
+              <Link className="nav-link seiten-style" to="/sportarten">
+                Sportarten
+              </Link>
+            </li> }
 
-          <Route path="/überuns" element={<Überuns />} />
-          <Route path="/Kontakt" element={<Kontakt />} />
-        </Routes>
+            {this.props.isAuthenticated && this.props.accountType === "auszubildender" && <li>
+              <Link className="nav-link seiten-style" to="/abbonnenten">
+                Abbonnenten
+              </Link>
+            </li>}
+          </ul>
+        </nav>
+        <div id="content">
+          <nav s className="navbar navbar-expand-lg navbar-light bg-light">
+            <div style={{ width: "100%" }}>
+              <Navigation />
+              <br />
+
+              {/* <Carousel /> */}
+              <br />
+              <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/anmenlung" element={<Anmenlung />} />
+                <Route path="/registrieren" element={<Registrieren />} />
+
+                <Route
+                  path="/sportarten"
+                  element={
+                    this.props.isAuthenticated
+                     ? (
+                      <Sportarten />
+                    ) : (
+                      <Navigate to="/anmenlung" />
+                    )
+                  }
+                />
+
+                {/*     <Route
+                    path="/dashboard"
+                    element={
+                      this.props.isAuthenticated  ? (
+                        <Dashboard />
+                      ) : (
+                        <Navigate to="/anmenlung" />
+                      )
+                    }
+                  /> */}
+                <Route path="/überuns" element={<Überuns />} />
+                <Route path="/Kontakt" element={<Kontakt />} />
+              </Routes>
+            </div>
+          </nav>
+        </div>
       </div>
     );
   }
@@ -55,6 +113,8 @@ class App extends React.Component {
 const getValuesFromReduxStore = (store) => {
   return {
     isAuthenticated: store.userRed.token,
+    accountType: store.userRed.accountType,
+    isActive: store.userRed.isActive,
   };
 };
 

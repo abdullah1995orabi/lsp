@@ -6,7 +6,7 @@ import {logoutAction} from "../../Redux/actions/UserActions"
 class Navigation extends Component {
   render() {
     return (
-      <nav className="navbar navbar-expand-lg fixed-top bg-light text-primary  ">
+      <nav className="navbar navbar-expand-lg bg-light text-primary  ">
         <Link className="navbar-brand " to="/">
           <img
             style={{
@@ -39,14 +39,7 @@ class Navigation extends Component {
                 Startseite
               </Link>
             </li>
-            {this.props.isAuthenticated && (
-                <li className="nav-item">
-              <Link className="nav-link seiten-style" to="/Sportarten">
-                Sportarten
-              </Link>
-            </li>
-            )}
-          
+         
 
             <li className="nav-item">
               <Link className="nav-link seiten-style" to="/Kontakt">

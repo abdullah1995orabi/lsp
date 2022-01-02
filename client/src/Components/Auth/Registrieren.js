@@ -1,9 +1,10 @@
 import React, { Component } from "react";
-import axios from "axios";
 import { Navigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import {ErrorMessage} from "../Messages/Messages"
-export default class Registrieren extends Component {
+import {registerAction} from "../../Redux/actions/UserActions"
+import {connect} from "react-redux"
+class Registrieren extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -22,6 +23,7 @@ export default class Registrieren extends Component {
     };
     this.registerHandler = this.registerHandler.bind(this);
   }
+
 
   validate(data) {
     let error = {};
@@ -44,9 +46,8 @@ export default class Registrieren extends Component {
     this.setState({ errors: errors });
 
     if (Object.keys(errors).length === 0) {
-      axios
-        .post("/api/register", this.state.data)
-        .then((x) => x.data)
+      
+        this.props.registerAction(this.state.data)
         .then((data) => {
           this.setState({ redirect: true });
           toast(data.message);
@@ -213,3 +214,6 @@ export default class Registrieren extends Component {
     );
   }
 }
+
+
+export default connect(null, {registerAction})(Registrieren)

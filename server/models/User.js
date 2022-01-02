@@ -37,8 +37,8 @@ const userSchema = new mongoose.Schema({
   },
 });
 
-userSchema.methods.encryptPassword = function (password) {
-  this.password = bcryptjs.hashSync(password, 8);
+userSchema.methods.encryptPassword =  function  (password) {
+  this.password =  bcryptjs.hashSync(password, 8);
 };
 userSchema.methods.isValidPassword = function (password) {
   return bcryptjs.compareSync(password, this.password);
@@ -47,6 +47,7 @@ userSchema.methods.isValidPassword = function (password) {
 userSchema.methods.generateLoginToken = function () {
   return {
     userId: this._id,
+    accountType : this.accountType,
     token: jwt.sign({ email: this.email, userId: this._id }, "shhhhh"),//38436786676bf873b73b86bv76b7vbvcn8c22n883456gg
   };
 };

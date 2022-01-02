@@ -22,19 +22,24 @@ app.post("/api/anmelden", (req, res) => {
   const { email, password } = req.body.data;
   User.findOne({ email: email }).then(async (user) => {
     if (user) {
-      if(user.isValidPassword(password)){
-        res.status(200).json({ message: "willkommen "+user.vorname+"!", loginData: user.generateLoginToken() });
-      }else{
+      if (user.isValidPassword(password)) {
+        res
+          .status(200)
+          .json({
+            message: "loged in " + user.vorname + "!",
+            loginData: user.generateLoginToken(),
+          });
+      } else {
         res.status(404).json({ message: "password wrong!" });
       }
     } else {
-      res.status(404).json({ message: "user not found" });    }
+      res.status(404).json({ message: "user not found" });
+    }
   });
 });
 
 app.post("/api/register", (req, res) => {
-  const { nachname, vorname, email, password, accountType, plz, strnr } =
-    req.body;
+  const { nachname, vorname, email, password, accountType, plz, strnr } = req.body.data;
 
   User.findOne({ email: email }).then(async (user) => {
     if (user) {
@@ -49,15 +54,23 @@ app.post("/api/register", (req, res) => {
           plz: plz,
           strnr: strnr,
         });
-        newuser.encryptPassword(password)
+        newuser.encryptPassword(password);
 
-         await newuser.save().then(data => {
-
-           res.status(200).json({ message: "willkommen!", loginData: data.generateLoginToken() });
-         });
+        await newuser.save().then((data) => {
+          res
+            .status(200)
+            .json({
+              message: "welcome!",
+              loginData: data.generateLoginToken(),
+            });
+        });
       } catch (err) {
         console.log(err);
-        res.status(404).json({ message: "error" });
+        res
+          .status(404)
+          .json({
+            message: "error while create new user! please try again later",
+          });
       }
     }
   });
