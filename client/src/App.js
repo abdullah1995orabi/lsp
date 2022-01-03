@@ -8,11 +8,14 @@ import Registrieren from "./Components/Auth/Registrieren";
 import Home from "./Components/Home/Home";
 import Navigation from "./Components/Navigation/Navigation";
 import Sportarten from "./Components/Sport/Sportarten";
+import Sportangebote from "./Components/Sport/Sportangebote";
+
 import Überuns from "./Components/Überuns/Überuns";
 import Kontakt from "./Components/Kontakt/Kontakt";
 // import Carousel from "./Components/Carousel/Carousel";
 import { ToastContainer } from "react-toastify";
 import { connect } from "react-redux";
+import Kurse from "./Components/Sport/Kurse";
 class App extends React.Component {
   //this.setState({ isActive: this.state.isActive === "" ? "active" : "" });
 
@@ -26,7 +29,8 @@ class App extends React.Component {
           </div>
 
           <ul className="list-unstyled components">
-            <p>Dummy Heading</p>
+            
+            <p></p>
             {/* <li className="active">
               <a
                 href="#homeSubmenu"
@@ -53,16 +57,26 @@ class App extends React.Component {
             </li>
 
             {this.props.isAuthenticated && <li>
-              <Link className="nav-link seiten-style" to="/sportarten">
+              <Link className="nav-link seiten-style" to="/Sportarten">
                 Sportarten
               </Link>
             </li> }
 
-            {this.props.isAuthenticated && this.props.accountType === "auszubildender" && <li>
-              <Link className="nav-link seiten-style" to="/abbonnenten">
-                Abbonnenten
+            {this.props.isAuthenticated && this.props.accountType === "trainer" && <li>
+              <Link className="nav-link seiten-style" to="/Sportangebote">
+                Sporthinzufügen
               </Link>
+
             </li>}
+
+            {this.props.isAuthenticated && this.props.accountType === "auszubildender" && <li>
+              <Link className="nav-link seiten-style" to="/Kurse">
+                Kurse
+              </Link>
+
+            </li>}
+
+            
           </ul>
         </nav>
         <div id="content">
@@ -77,7 +91,9 @@ class App extends React.Component {
                 <Route path="/" element={<Home />} />
                 <Route path="/anmenlung" element={<Anmenlung />} />
                 <Route path="/registrieren" element={<Registrieren />} />
-
+                <Route path="/sportarten" element={<Sportarten />} />
+                <Route path="/sportangebote" element={<Sportangebote />} />
+                <Route path="/sportangebote" element={<Kurse />} />
                 <Route
                   path="/sportarten"
                   element={

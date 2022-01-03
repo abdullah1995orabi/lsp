@@ -170,9 +170,9 @@ div.simple {
   left: 0;
   height: 100vh;
   z-index: 999;
-  background: #7386D5;
+  background: rgba(247, 245, 245, 0.891);
   color: #fff;
-  transition: all 0.3s;
+  transition: all 0.5s;
 }
 .wrapper {
   display: flex;
@@ -189,17 +189,19 @@ div.simple {
 }
 
 #sidebar .sidebar-header {
-  padding: 20px;
-  background: #6d7fcc;
+  padding: 16px;
+  background: #04e8f8;
+  
+  
 }
 
 #sidebar ul.components {
-  padding: 20px 0;
-  border-bottom: 1px solid #47748b;
+  padding: 30px ;
+
 }
 
 #sidebar ul p {
-  color: #fff;
+  color: #04e8f8;
   padding: 10px;
 }
 
@@ -209,16 +211,17 @@ div.simple {
   display: block;
 }
 #sidebar ul li a:hover {
-  color: #7386D5;
+  color: #04e8f8;
   background: #fff;
 }
 
 #sidebar ul li.active > a, a[aria-expanded="true"] {
-  color: #fff;
-  background: #6d7fcc;
+  color: #04e8f8;
+  background:  #fff;
 }
 ul ul a {
   font-size: 0.9em !important;
   padding-left: 30px !important;
+  
   background: #6d7fcc;
 }

@@ -88,10 +88,15 @@ class Anmendung extends Component {
           id="password"
           required
         />
+      <a href="#" className="btn btn-outline-success text-dark">
+        password vergessen</a>
 
+        
         <button onClick={this.anmeldenHandler} className="registerbtn">
           Anmelden
         </button>
+       
+        
       </div>
     );
   }
