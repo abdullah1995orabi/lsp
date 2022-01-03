@@ -29,7 +29,6 @@ class App extends React.Component {
           </div>
 
           <ul className="list-unstyled components">
-            
             <p></p>
             {/* <li className="active">
               <a
@@ -56,27 +55,29 @@ class App extends React.Component {
               <a href="#">About</a>
             </li>
 
-            {this.props.isAuthenticated && <li>
-              <Link className="nav-link seiten-style" to="/Sportarten">
-                Sportarten
-              </Link>
-            </li> }
+            {this.props.isAuthenticated && (
+              <li>
+                <Link className="nav-link seiten-style" to="/Sportarten">
+                  Sportarten
+                </Link>
+              </li>
+            )}
 
-            {this.props.isAuthenticated && this.props.accountType === "trainer" && <li>
-              <Link className="nav-link seiten-style" to="/Sportangebote">
-                Sporthinzufügen
-              </Link>
+            {this.props.isAuthenticated  && (
+                <li>
+                  <Link className="nav-link seiten-style" to="/Sportangebote">
+                    Sporthinzufügen
+                  </Link>
+                </li>
+              )}
 
-            </li>}
-
-            {this.props.isAuthenticated && this.props.accountType === "auszubildender" && <li>
-              <Link className="nav-link seiten-style" to="/Kurse">
-                Kurse
-              </Link>
-
-            </li>}
-
-            
+            {this.props.isAuthenticated  && (
+                <li>
+                  <Link className="nav-link seiten-style" to="/Kurse">
+                    Kurse
+                  </Link>
+                </li>
+              )}
           </ul>
         </nav>
         <div id="content">
@@ -91,14 +92,11 @@ class App extends React.Component {
                 <Route path="/" element={<Home />} />
                 <Route path="/anmenlung" element={<Anmenlung />} />
                 <Route path="/registrieren" element={<Registrieren />} />
-                <Route path="/sportarten" element={<Sportarten />} />
-                <Route path="/sportangebote" element={<Sportangebote />} />
-                <Route path="/sportangebote" element={<Kurse />} />
+
                 <Route
                   path="/sportarten"
                   element={
-                    this.props.isAuthenticated
-                     ? (
+                    this.props.isAuthenticated ? (
                       <Sportarten />
                     ) : (
                       <Navigate to="/anmenlung" />
@@ -106,16 +104,29 @@ class App extends React.Component {
                   }
                 />
 
-                {/*     <Route
-                    path="/dashboard"
-                    element={
-                      this.props.isAuthenticated  ? (
-                        <Dashboard />
-                      ) : (
-                        <Navigate to="/anmenlung" />
-                      )
-                    }
-                  /> */}
+                <Route
+                  path="/sportangebote"
+                  element={
+                    this.props.isAuthenticated 
+                     ? (
+                      <Sportangebote />
+                    ) : (
+                      <Navigate to="/anmenlung" />
+                    )
+                  }
+                />
+                <Route
+                  path="/Kurse"
+                  element={
+                    this.props.isAuthenticated
+                     ? (
+                      <Kurse />
+                    ) : (
+                      <Navigate to="/anmenlung" />
+                    )
+                  }
+                />
+
                 <Route path="/überuns" element={<Überuns />} />
                 <Route path="/Kontakt" element={<Kontakt />} />
               </Routes>

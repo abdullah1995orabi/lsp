@@ -24,6 +24,7 @@ if(localStorage.loginToken){
     payload: {
       token: localStorage.loginToken,
       userId: payload.userId,
+      accountType: payload.accountType,
       isActive: "",
 
     }
