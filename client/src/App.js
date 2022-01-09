@@ -5,10 +5,12 @@ import { Routes, Route, Navigate, Link } from "react-router-dom";
 // Components
 import Anmenlung from "./Components/Auth/Anmendung";
 import Registrieren from "./Components/Auth/Registrieren";
+import ForgetPassword from "./Components/Auth/ForgetPassword";
+import ResetPassword from "./Components/Auth/ResetPassword"
 import Home from "./Components/Home/Home";
 import Navigation from "./Components/Navigation/Navigation";
 import Sportarten from "./Components/Sport/Sportarten";
-import Sportangebote from "./Components/Sport/Sportangebote";
+import SportHinZufugen from "./Components/Sport/SportHinZufugen";
 
 import Überuns from "./Components/Überuns/Überuns";
 import Kontakt from "./Components/Kontakt/Kontakt";
@@ -16,6 +18,7 @@ import Kontakt from "./Components/Kontakt/Kontakt";
 import { ToastContainer } from "react-toastify";
 import { connect } from "react-redux";
 import Kurse from "./Components/Sport/Kurse";
+
 class App extends React.Component {
   //this.setState({ isActive: this.state.isActive === "" ? "active" : "" });
 
@@ -57,7 +60,7 @@ class App extends React.Component {
 
             {this.props.isAuthenticated && (
               <li>
-                <Link className="nav-link seiten-style" to="/Sportarten">
+                <Link className="nav-link seiten-style" to="/sportarten">
                   Sportarten
                 </Link>
               </li>
@@ -65,7 +68,7 @@ class App extends React.Component {
 
             {this.props.isAuthenticated  && (
                 <li>
-                  <Link className="nav-link seiten-style" to="/Sportangebote">
+                  <Link className="nav-link seiten-style" to="/sportarthinzufugen">
                     Sporthinzufügen
                   </Link>
                 </li>
@@ -73,7 +76,7 @@ class App extends React.Component {
 
             {this.props.isAuthenticated  && (
                 <li>
-                  <Link className="nav-link seiten-style" to="/Kurse">
+                  <Link className="nav-link seiten-style" to="/kurse">
                     Kurse
                   </Link>
                 </li>
@@ -92,7 +95,9 @@ class App extends React.Component {
                 <Route path="/" element={<Home />} />
                 <Route path="/anmenlung" element={<Anmenlung />} />
                 <Route path="/registrieren" element={<Registrieren />} />
-
+                <Route path="/forgetpassword" element={<ForgetPassword />} />
+                 <Route path="/resetpasswordtoken/:token" element={<ResetPassword />} /> 
+                {/* http://localhost:3000/resetpasswordtoken/eyJhbGzuf6n_OnUfXSVE1YmHeVFQaYwisbU */}
                 <Route
                   path="/sportarten"
                   element={
@@ -105,18 +110,18 @@ class App extends React.Component {
                 />
 
                 <Route
-                  path="/sportangebote"
+                  path="/sportarthinzufugen"
                   element={
-                    this.props.isAuthenticated 
+                    this.props.isAuthenticated /* && this.props.accountType === "..." */
                      ? (
-                      <Sportangebote />
+                      <SportHinZufugen />
                     ) : (
                       <Navigate to="/anmenlung" />
                     )
                   }
                 />
                 <Route
-                  path="/Kurse"
+                  path="/kurse"
                   element={
                     this.props.isAuthenticated
                      ? (
@@ -128,7 +133,7 @@ class App extends React.Component {
                 />
 
                 <Route path="/überuns" element={<Überuns />} />
-                <Route path="/Kontakt" element={<Kontakt />} />
+                <Route path="/kontakt" element={<Kontakt />} />
               </Routes>
             </div>
           </nav>
