@@ -32,6 +32,17 @@ export const registerAction = (data) => (dispatch) => {
     return data;
   });
 };
+export const forgetPasswordAction = (data) => () => {
+  return UserApi.user.forgetPassword(data).then(data => {
+    return data
+  })
+}
+
+export const resetPasswordAction = (data) => () => {
+  return UserApi.user.resetPassword(data).then(data => {
+    return data
+  })
+}
 
 export const logoutAction = () => (dispatch) => {
   dispatch({

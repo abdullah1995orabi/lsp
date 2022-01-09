@@ -42,12 +42,12 @@ class Navigation extends Component {
          
 
             <li className="nav-item">
-              <Link className="nav-link seiten-style" to="/Kontakt">
+              <Link className="nav-link seiten-style" to="/kontakt">
                 Kontakt
               </Link>
             </li>
             <li className="nav-item">
-              <Link className="nav-link seiten-style" to="/Überuns">
+              <Link className="nav-link seiten-style" to="/überuns">
                 Überuns
               </Link>
             </li>

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Navigate } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { ErrorMessage } from "../Messages/Messages";
 import { loginAction } from "../../Redux/actions/UserActions";
@@ -42,7 +42,6 @@ class Anmendung extends Component {
         });
     }
   }
-
 
   render() {
     return (
@@ -88,15 +87,13 @@ class Anmendung extends Component {
           id="password"
           required
         />
-      <a href="#" className="btn btn-outline-success text-dark">
-        password vergessen</a>
+        <Link to="/forgetpassword" className="btn btn-outline-success text-dark">
+          password vergessen
+        </Link>
 
-        
         <button onClick={this.anmeldenHandler} className="registerbtn">
           Anmelden
         </button>
-       
-        
       </div>
     );
   }
